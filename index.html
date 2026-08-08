@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirza Arshi Abbas | Senior Java Develop</title>
+    <title>Mirza Arshi Abbas | Senior Java Developer</title>
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
@@ -279,31 +279,31 @@
             margin-top: 0.3rem;
         }
 
-        /* --- SKILLS & INTERACTIVE BARS --- */
+        /* --- ANIMATED TECH BADGES (NO PERCENTAGES) --- */
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
         .skill-box {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            padding: 2rem;
+            padding: 2.2rem;
             border-radius: 20px;
             backdrop-filter: blur(12px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
+            transition: all 0.4s ease;
         }
 
         .skill-box:hover {
             border-color: rgba(139, 92, 246, 0.4);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
         }
 
         .skill-box h3 {
             font-size: 1.3rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
@@ -311,31 +311,61 @@
 
         .skill-box h3 i { color: var(--primary); }
 
-        .progress-item {
-            margin-bottom: 1.2rem;
-        }
-
-        .progress-info {
+        .tech-grid {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
         }
 
-        .bar-bg {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.75rem 1.1rem;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            position: relative;
             overflow: hidden;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .bar-fill {
+        /* Shimmer reflection animation */
+        .tech-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            width: 0%; /* Dynamic animation */
-            transition: width 1.5s ease-in-out;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .tech-badge:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 20px var(--primary-glow);
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        .tech-badge:hover::before {
+            left: 100%;
+        }
+
+        .tech-badge i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .tech-badge:hover i {
+            transform: rotate(12deg) scale(1.15);
+            color: var(--primary);
         }
 
         /* --- WORK EXPERIENCE TIMELINE --- */
@@ -412,7 +442,7 @@
             backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
-            transition: all 0.1s ease-out; /* Smooth tilt */
+            transition: all 0.1s ease-out;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
@@ -576,60 +606,50 @@
         </div>
     </section>
 
-    <!-- TECHNICAL SKILLS & ANIMATED PROGRESS -->
+    <!-- TECHNICAL SKILLS & ANIMATED SHIMMER BADGES -->
     <section id="skills" class="reveal">
         <div class="section-header">
             <span>// Tech Stack</span>
             <h2>Core Competencies</h2>
         </div>
         <div class="skills-container">
+
             <div class="skill-box">
                 <h3><i class="fa-solid fa-code"></i> Backend Ecosystem</h3>
-                <div class="progress-item">
-                    <div class="progress-info"><span>Java 8 / Core Java</span><span>95%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="95%"></div></div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-info"><span>Spring Boot & Microservices</span><span>90%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="90%"></div></div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-info"><span>Spring Security & JPA</span><span>85%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="85%"></div></div>
+                <div class="tech-grid">
+                    <div class="tech-badge"><i class="fa-brands fa-java"></i> Java 8 / Core Java</div>
+                    <div class="tech-badge"><i class="fa-solid fa-leaf"></i> Spring Boot</div>
+                    <div class="tech-badge"><i class="fa-solid fa-cubes"></i> Microservices</div>
+                    <div class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Spring Security</div>
+                    <div class="tech-badge"><i class="fa-solid fa-database"></i> Spring Data JPA</div>
+                    <div class="tech-badge"><i class="fa-solid fa-gears"></i> RESTful APIs</div>
                 </div>
             </div>
 
             <div class="skill-box">
                 <h3><i class="fa-solid fa-network-wired"></i> Distributed & Cloud</h3>
-                <div class="progress-item">
-                    <div class="progress-info"><span>Apache Kafka / RabbitMQ</span><span>88%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="88%"></div></div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-info"><span>Docker & Kubernetes (EKS)</span><span>82%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="82%"></div></div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-info"><span>AWS Services & CI/CD</span><span>80%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="80%"></div></div>
+                <div class="tech-grid">
+                    <div class="tech-badge"><i class="fa-solid fa-bolt"></i> Apache Kafka</div>
+                    <div class="tech-badge"><i class="fa-solid fa-envelope-open-text"></i> RabbitMQ</div>
+                    <div class="tech-badge"><i class="fa-brands fa-docker"></i> Docker</div>
+                    <div class="tech-badge"><i class="fa-solid fa-dharmachakra"></i> Kubernetes (EKS)</div>
+                    <div class="tech-badge"><i class="fa-brands fa-aws"></i> AWS Cloud</div>
+                    <div class="tech-badge"><i class="fa-solid fa-infinity"></i> CI/CD Pipelines</div>
                 </div>
             </div>
 
             <div class="skill-box">
                 <h3><i class="fa-solid fa-database"></i> Databases & Tools</h3>
-                <div class="progress-item">
-                    <div class="progress-info"><span>MySQL Query Tuning</span><span>90%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="90%"></div></div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-info"><span>MongoDB</span><span>78%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="78%"></div></div>
-                </div>
-                <div class="progress-item">
-                    <div class="progress-info"><span>Git, Maven, JUnit</span><span>92%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" data-progress="92%"></div></div>
+                <div class="tech-grid">
+                    <div class="tech-badge"><i class="fa-solid fa-server"></i> MySQL Query Tuning</div>
+                    <div class="tech-badge"><i class="fa-solid fa-leaf"></i> MongoDB</div>
+                    <div class="tech-badge"><i class="fa-brands fa-git-alt"></i> Git Version Control</div>
+                    <div class="tech-badge"><i class="fa-solid fa-box-open"></i> Apache Maven</div>
+                    <div class="tech-badge"><i class="fa-solid fa-vial"></i> JUnit & Mockito</div>
+                    <div class="tech-badge"><i class="fa-solid fa-terminal"></i> Linux / Shell</div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -645,7 +665,7 @@
                 <h3>Siemens</h3>
                 <p style="color: var(--secondary); font-weight: 600; margin-bottom: 0.8rem;">Software Engineer</p>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">
-                    Architected document management microservices, integrated Azure AD RBAC authorization, and built high-performance streaming export engines.
+                    Architected document management microservices, optimized batch file upload processing, and built high-performance streaming export engines.
                 </p>
             </div>
             <div class="timeline-card right">
@@ -667,19 +687,19 @@
         </div>
         <div class="projects-grid">
 
-            <!-- PROJECT 1 -->
+            <!-- PROJECT 1: SIEMENS (SIMPLIFIED) -->
             <div class="project-card">
                 <div class="project-card-content">
                     <div class="project-tag">Siemens • Enterprise Tool</div>
                     <h3>Product Documentation Tool (PDT)</h3>
-                    <p>Document management engine performing bulk operations, automated PDF processing, and Azure AD authentication.</p>
+                    <p>Document management engine performing bulk file uploads, automated processing, and dynamic report exports.</p>
                     <ul class="project-features">
-                        <li><i class="fa-solid fa-angle-right"></i> Custom Spring Data JPA batch optimization for 5,000+ records.</li>
-                        <li><i class="fa-solid fa-angle-right"></i> Streaming export engines supporting multi-format files (Excel/ZIP).</li>
+                        <li><i class="fa-solid fa-angle-right"></i> Custom Spring Data JPA batch optimization for handling 5,000+ files.</li>
+                        <li><i class="fa-solid fa-angle-right"></i> High-throughput streaming export engines supporting multi-format files (Excel/ZIP).</li>
                     </ul>
                     <div class="tech-pills">
                         <span class="pill">Spring Boot</span>
-                        <span class="pill">Azure AD</span>
+                        <span class="pill">Java 8</span>
                         <span class="pill">AWS</span>
                         <span class="pill">MySQL</span>
                     </div>
@@ -831,7 +851,7 @@
         }
         typingEffect();
 
-        // 4. SCROLL REVEAL & SKILL BAR ANIMATION
+        // 4. SCROLL REVEAL ANIMATION
         function reveal() {
             const reveals = document.querySelectorAll('.reveal');
             reveals.forEach(el => {
@@ -839,12 +859,6 @@
                 const elementTop = el.getBoundingClientRect().top;
                 if (elementTop < windowHeight - 100) {
                     el.classList.add('active');
-                    
-                    // Animate skill bars inside section
-                    const progressBars = el.querySelectorAll('.bar-fill');
-                    progressBars.forEach(bar => {
-                        bar.style.width = bar.getAttribute('data-progress');
-                    });
                 }
             });
         }
