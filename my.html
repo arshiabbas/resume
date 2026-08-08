@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirza Arshi Abbas | Java Spring Boot Microservices Developer</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & THEME RESET --- */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #8b5cf6;
+            --primary-glow: rgba(139, 92, 246, 0.35);
+            --secondary: #3b82f6;
+            --accent: #ec4899;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND ANIMATION BLOBS --- */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 80px) scale(1.1); }
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1.2rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-nav {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            padding: 4rem 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #a78bfa;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge i { font-size: 0.75rem; color: #34d399; }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            max-width: 680px;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-action {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        /* --- SECTION STYLES & REVEAL ANIMATION --- */
+        section {
+            padding: 6rem 8%;
+        }
+
+        .section-title {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .section-title h2 i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 1.8rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--text-main);
+        }
+
+        .skill-card h3 i {
+            color: var(--secondary);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #d1d5db;
+        }
+
+        /* --- EXPERIENCE & TIMELINE --- */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            border-left: 2px solid var(--card-border);
+            padding-left: 2rem;
+            margin-left: 1rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.55rem;
+            top: 0.3rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-header h3 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+        }
+
+        .duration {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            background: rgba(236, 72, 153, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .role {
+            font-size: 1rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        /* --- PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-meta {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-bullets {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-bullets li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .project-bullets li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* --- EDUCATION & FOOTER --- */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .edu-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 8%;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(11, 15, 25, 0.95);
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-socials a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: var(--primary);
+        }
+
+        /* --- SCROLL ANIMATION CLASS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE MOBILE FIXES --- */
+        @media (max-width: 768px) {
+            header { padding: 1rem 5%; }
+            nav { display: none; } /* Simplified menu for mobile */
+            section { padding: 4rem 5%; }
+            .hero { padding: 3rem 5%; }
+            .timeline { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND GLOW BLOBS -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <a href="#" class="logo">MAA.dev</a>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="mailto:abbasarshi1995@gmail.com" class="btn-nav">Contact Me</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="about">
+        <div class="badge">
+            <i class="fa-solid fa-circle"></i> Open to High-Impact Roles
+        </div>
+        <h1>Mirza Arshi Abbas</h1>
+        <h2>Java Spring Boot Microservices Developer</h2>
+        <p>
+            Results-driven backend developer with <strong>5+ years of enterprise experience</strong> constructing scalable backend architectures, high-performance RESTful APIs, and real-time Kafka messaging platforms across Banking, Healthcare, and Insurance domains.
+        </p>
+        <div class="hero-action">
+            <a href="mailto:abbasarshi1995@gmail.com" class="btn-primary">
+                <i class="fa-solid fa-envelope"></i> Get In Touch
+            </a>
+            <a href="https://linkedin.com/in/arshiabbasmirza" target="_blank" class="btn-outline">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION -->
+    <section id="skills" class="reveal">
+        <div class="section-title">
+            <h2><i class="fa-solid fa-code"></i> Technical Stack</h2>
+            <p>Core engineering competencies and frameworks utilized in production environments.</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-layer-group"></i> Frameworks & Core</h3>
+                <div class="tags">
+                    <span class="tag">Java 8 / J2EE</span>
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">Microservices</span>
+                    <span class="tag">Spring Security</span>
+                    <span class="tag">Hibernate</span>
+                    <span class="tag">Spring Data JPA</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-cloud"></i> Messaging & Cloud</h3>
+                <div class="tags">
+                    <span class="tag">Apache Kafka</span>
+                    <span class="tag">RabbitMQ</span>
+                    <span class="tag">AWS (EKS)</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Kubernetes</span>
+                    <span class="tag">Jenkins CI/CD</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-database"></i> Databases & Web</h3>
+                <div class="tags">
+                    <span class="tag">MySQL</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">Angular</span>
+                    <span class="tag">Azure AD</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-wrench"></i> Tools & Delivery</h3>
+                <div class="tags">
+                    <span class="tag">Maven</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">JUnit</span>
+                    <span class="tag">Tomcat</span>
+                    <span class="tag">Linux</span>
+                    <span class="tag">Agile Methodologies</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK EXPERIENCE TIMELINE -->
+    <section id="experience" class="reveal">
+        <div class="section-title">
+            <h2><i class="fa-solid fa-briefcase"></i> Work History</h2>
+            <p>Over 5 years of professional backend software engineering expertise.</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="company-header">
+                    <h3>SIEMENS</h3>
+                    <span class="duration">04/2025 - 07/2025</span>
+                </div>
+                <div class="role">Software Engineer</div>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    Focused on developing internal enterprise document management systems with complex RBAC security and bulk export engine architectures.
+                </p>
+            </div>
+            <div class="timeline-item">
+                <div class="company-header">
+                    <h3>INFOSYS</h3>
+                    <span class="duration">05/2020 - 04/2025</span>
+                </div>
+                <div class="role">Software Engineer</div>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    Delivered critical banking, insurance, and healthcare supply chain platforms across global enterprise clients including HSBC, AIG, and AmerisourceBergen.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PROJECTS -->
+    <section id="projects" class="reveal">
+        <div class="section-title">
+            <h2><i class="fa-solid fa-diagram-project"></i> Key Projects & Achievements</h2>
+            <p>Production systems designed and deployed across enterprise clients.</p>
+        </div>
+        <div class="projects-grid">
+
+            <!-- PROJECT 4 -->
+            <div class="project-card">
+                <div>
+                    <div class="project-meta">Siemens • Document Platform</div>
+                    <h3>Product Documentation Tool (PDT)</h3>
+                    <p>Enterprise document management system handling hyperlink verification, automated PDF content extraction, and bulk uploads.</p>
+                    <ul class="project-bullets">
+                        <li>Built RESTful APIs with Spring Boot and Data JPA for modular document handling.</li>
+                        <li>Integrated enterprise RBAC security protocols with Azure AD.</li>
+                        <li>Designed streaming export engines (Excel, CSV, ZIP) for large-scale operations.</li>
+                        <li>Optimized MySQL query batch performance across 5,000+ record sets.</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">Azure AD</span>
+                    <span class="tag">AWS</span>
+                    <span class="tag">Angular</span>
+                </div>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="project-card">
+                <div>
+                    <div class="project-meta">HSBC Bank • Banking Compliance</div>
+                    <h3>Customer Due Diligence (CDD)</h3>
+                    <p>Enterprise KYC review & risk assessment engine consolidating real-time streaming data from Core Banking and compliance platforms.</p>
+                    <ul class="project-bullets">
+                        <li>Built high-volume real-time compliance microservices.</li>
+                        <li>Implemented event-driven messaging using Kafka and RabbitMQ.</li>
+                        <li>Managed dual persistence layers across MySQL and MongoDB.</li>
+                        <li>Containerized services with Docker and orchestrated on AWS EKS Kubernetes clusters.</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag">Microservices</span>
+                    <span class="tag">Kafka</span>
+                    <span class="tag">Kubernetes</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+            </div>
+
+            <!-- PROJECT 2 -->
+            <div class="project-card">
+                <div>
+                    <div class="project-meta">AIG • Insurance Engine</div>
+                    <h3>Operational Data Store (ODS)</h3>
+                    <p>Centralized data hub holding atomic-level transaction data for Policy and Claims domains with standardized pub/sub interfaces.</p>
+                    <ul class="project-bullets">
+                        <li>Designed atomic transaction microservices for insurance policies/claims.</li>
+                        <li>Built standard pub/sub communication channels with Kafka, removing point-to-point couplings.</li>
+                        <li>Streamlined automated CI/CD pipelines via Jenkins.</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag">Core Java</span>
+                    <span class="tag">Kafka</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Jenkins</span>
+                </div>
+            </div>
+
+            <!-- PROJECT 1 -->
+            <div class="project-card">
+                <div>
+                    <div class="project-meta">AmerisourceBergen • Healthcare</div>
+                    <h3>Healthcare Supply Chain Platform</h3>
+                    <p>Global healthcare supply chain portal connecting manufacturers, healthcare providers, and pharmacies for distribution optimization.</p>
+                    <ul class="project-bullets">
+                        <li>Designed core microservices APIs for global pharmaceutical tracking.</li>
+                        <li>Optimized relational database queries supporting dynamic partner analytics.</li>
+                        <li>Maintained high code coverage and reliability using JUnit test suites.</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag">Java 8</span>
+                    <span class="tag">Spring Security</span>
+                    <span class="tag">Hibernate</span>
+                    <span class="tag">JUnit</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="reveal">
+        <div class="section-title">
+            <h2><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+            <p>Academic qualifications in Computer Applications.</p>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <h3>Master of Computer Applications (MCA)</h3>
+                <p style="color: var(--primary); font-weight: 600;">Bangalore University</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Bangalore, Karnataka, India</p>
+            </div>
+            <div class="edu-card">
+                <h3>Bachelor of Computer Applications (BCA)</h3>
+                <p style="color: var(--secondary); font-weight: 600;">Bangalore University</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Bangalore, Karnataka, India</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-socials">
+            <a href="https://linkedin.com/in/arshiabbasmirza" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:abbasarshi1995@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            <a href="tel:+918105405542"><i class="fa-solid fa-phone"></i></a>
+        </div>
+        <p>Mirza Arshi Abbas • Java Spring Boot Microservices Developer</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #6b7280;">Bangalore, Karnataka, India</p>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT ANIMATIONS -->
+    <script>
+        // Scroll Reveal Animation Script
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger on initial page load
+        revealOnScroll();
+    </script>
+</body>
+</html>
