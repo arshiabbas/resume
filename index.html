@@ -3,79 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirza Arshi Abbas | Java Spring Boot Microservices Developer</title>
-    <!-- FontAwesome Icons -->
+    <title>Mirza Arshi Abbas | Senior Java Developer</title>
+    <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS VARIABLES & THEME RESET --- */
+        /* --- CORE VARS & THEME --- */
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(17, 24, 39, 0.7);
+            --bg-dark: #07090e;
+            --card-bg: rgba(15, 23, 42, 0.65);
             --card-border: rgba(255, 255, 255, 0.08);
             --primary: #8b5cf6;
-            --primary-glow: rgba(139, 92, 246, 0.35);
-            --secondary: #3b82f6;
+            --primary-glow: rgba(139, 92, 246, 0.4);
+            --secondary: #06b6d4;
             --accent: #ec4899;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            line-height: 1.6;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- BACKGROUND ANIMATION BLOBS --- */
-        .blob {
+        /* --- CANVAS PARTICLES BACKGROUND --- */
+        #bg-canvas {
             position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
-            opacity: 0.25;
-            animation: float 12s infinite alternate ease-in-out;
+            pointer-events: none;
         }
 
-        .blob-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            top: -100px;
-            left: -100px;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--secondary);
-            bottom: -150px;
-            right: -100px;
-            animation-delay: -6s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(60px, 80px) scale(1.1); }
+        /* --- GLOWING CURSOR FOLLOWER --- */
+        .cursor-follower {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: transform 0.1s ease-out;
         }
 
         /* --- NAVIGATION --- */
         header {
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(15px);
+            background: rgba(7, 9, 14, 0.75);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--card-border);
             padding: 1.2rem 8%;
             display: flex;
@@ -84,18 +77,18 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.5px;
         }
 
         nav {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
         }
 
@@ -105,310 +98,340 @@
             font-weight: 500;
             font-size: 0.95rem;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        nav a:hover {
-            color: var(--text-main);
-            text-shadow: 0 0 10px var(--primary-glow);
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
         }
 
-        .btn-nav {
+        nav a:hover { color: var(--text-main); }
+        nav a:hover::after { width: 100%; }
+
+        .btn-hire {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: #fff !important;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
+            padding: 0.6rem 1.4rem;
+            border-radius: 30px;
             font-weight: 600 !important;
-            box-shadow: 0 4px 15px var(--primary-glow);
+            box-shadow: 0 0 20px var(--primary-glow);
             transition: transform 0.3s, box-shadow 0.3s !important;
         }
 
-        .btn-nav:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        .btn-hire::after { display: none; }
+        .btn-hire:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            min-height: 90vh;
-            padding: 4rem 8%;
+            min-height: 100vh;
+            padding: 8rem 8% 4rem;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: space-between;
             position: relative;
         }
 
-        .badge {
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .badge-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
             background: rgba(139, 92, 246, 0.1);
             border: 1px solid rgba(139, 92, 246, 0.3);
             color: #a78bfa;
-            padding: 0.4rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 30px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 2rem;
         }
 
-        .badge i { font-size: 0.75rem; color: #34d399; }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1rem;
+            letter-spacing: -1px;
         }
 
-        .hero h1 span {
+        .typing-text {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
         }
 
         .hero h2 {
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
             color: var(--text-muted);
             font-weight: 400;
             margin-bottom: 1.5rem;
         }
 
         .hero p {
-            max-width: 680px;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
             margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
 
-        .hero-action {
+        .hero-ctas {
             display: flex;
             gap: 1.2rem;
             flex-wrap: wrap;
         }
 
-        .btn-primary {
+        .btn-main {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: #fff;
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 20px var(--primary-glow);
-            transition: transform 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--card-border);
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-main);
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            box-shadow: 0 10px 25px var(--primary-glow);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
-        .btn-outline:hover {
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px var(--primary-glow);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .btn-glass:hover {
             background: rgba(255, 255, 255, 0.08);
-            border-color: var(--text-muted);
+            transform: translateY(-3px);
         }
 
-        /* --- SECTION STYLES & REVEAL ANIMATION --- */
+        /* --- SECTIONS COMMON --- */
         section {
-            padding: 6rem 8%;
+            padding: 7rem 8%;
+            position: relative;
         }
 
-        .section-title {
-            margin-bottom: 3.5rem;
+        .section-header {
+            margin-bottom: 4rem;
         }
 
-        .section-title h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
+        .section-header span {
+            font-family: 'Fira Code', monospace;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-top: 0.3rem;
+        }
+
+        /* --- SKILLS & INTERACTIVE BARS --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .skill-box:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
         }
 
-        .section-title h2 i {
-            color: var(--primary);
-            font-size: 1.8rem;
-        }
+        .skill-box h3 i { color: var(--primary); }
 
-        .section-title p {
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-        }
-
-        /* --- SKILLS SECTION --- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 1.8rem;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(139, 92, 246, 0.4);
-        }
-
-        .skill-card h3 {
-            font-size: 1.2rem;
+        .progress-item {
             margin-bottom: 1.2rem;
+        }
+
+        .progress-info {
             display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            color: var(--text-main);
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
         }
 
-        .skill-card h3 i {
-            color: var(--secondary);
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .tag {
+        .bar-bg {
+            width: 100%;
+            height: 8px;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #d1d5db;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        /* --- EXPERIENCE & TIMELINE --- */
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            width: 0%; /* Dynamic animation */
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* --- WORK EXPERIENCE TIMELINE --- */
         .timeline {
             position: relative;
             max-width: 900px;
-            border-left: 2px solid var(--card-border);
-            padding-left: 2rem;
-            margin-left: 1rem;
+            margin: 0 auto;
         }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-
-        .timeline-item::before {
+        .timeline::before {
             content: '';
             position: absolute;
-            left: -2.55rem;
-            top: 0.3rem;
-            width: 14px;
-            height: 14px;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary), transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-card {
+            width: 45%;
+            margin-bottom: 3rem;
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .timeline-card.left { left: 0; }
+        .timeline-card.right { left: 55%; }
+
+        .timeline-card::after {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
+            box-shadow: 0 0 15px var(--primary);
         }
 
-        .company-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 0.5rem;
-        }
+        .timeline-card.left::after { right: -11.5%; }
+        .timeline-card.right::after { left: -11.5%; }
 
-        .company-header h3 {
-            font-size: 1.4rem;
-            color: var(--text-main);
-        }
-
-        .duration {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 600;
-            background: rgba(236, 72, 153, 0.1);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-        }
-
-        .role {
-            font-size: 1rem;
+        .time-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
             color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
         }
 
-        /* --- PROJECTS SECTION --- */
+        /* --- PROJECTS WITH 3D TILT EFFECT --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2rem;
         }
 
         .project-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border-radius: 20px;
+            padding: 2.2rem;
+            backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: all 0.1s ease-out; /* Smooth tilt */
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .project-card-content {
+            transform: translateZ(30px);
         }
 
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-meta {
-            font-size: 0.8rem;
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: 1px;
+        .project-tag {
+            font-size: 0.75rem;
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
             text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 0.5rem;
         }
 
         .project-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 0.8rem;
         }
 
@@ -416,73 +439,84 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        .project-bullets {
+        .project-features {
             list-style: none;
             margin-bottom: 1.5rem;
         }
 
-        .project-bullets li {
+        .project-features li {
+            font-size: 0.88rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.6rem;
-            position: relative;
-            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
 
-        .project-bullets li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
+        .project-features li i {
             color: var(--primary);
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
         }
 
-        /* --- EDUCATION & FOOTER --- */
-        .edu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        .edu-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 1.5rem;
-            border-radius: 12px;
+        .pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
         }
 
+        /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 3rem 8%;
+            padding: 4rem 8%;
             border-top: 1px solid var(--card-border);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background: rgba(11, 15, 25, 0.95);
+            background: rgba(7, 9, 14, 0.95);
         }
 
-        .footer-socials {
+        .social-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .footer-socials a {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            transition: color 0.3s;
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .footer-socials a:hover {
-            color: var(--primary);
+        .social-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        /* --- SCROLL ANIMATION CLASS --- */
+        /* --- SCROLL REVEAL CLASS --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
@@ -491,22 +525,24 @@
         }
 
         /* --- RESPONSIVE MOBILE FIXES --- */
-        @media (max-width: 768px) {
-            header { padding: 1rem 5%; }
-            nav { display: none; } /* Simplified menu for mobile */
-            section { padding: 4rem 5%; }
-            .hero { padding: 3rem 5%; }
-            .timeline { margin-left: 0; }
+        @media (max-width: 900px) {
+            .timeline::before { left: 20px; }
+            .timeline-card { width: 100%; left: 0 !important; padding-left: 3rem; }
+            .timeline-card::after { left: 12px !important; }
+            header nav { display: none; }
+            .hero { padding-top: 7rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BACKGROUND GLOW BLOBS -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+    <!-- CANVAS ANIMATED BACKGROUND -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- MOUSE GLOW FOLLOWER -->
+    <div class="cursor-follower" id="cursor"></div>
 
-    <!-- HEADER / NAVIGATION -->
+    <!-- HEADER -->
     <header>
         <a href="#" class="logo">MAA.dev</a>
         <nav>
@@ -514,257 +550,321 @@
             <a href="#skills">Skills</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
-            <a href="mailto:abbasarshi1995@gmail.com" class="btn-nav">Contact Me</a>
+            <a href="mailto:abbasarshi1995@gmail.com" class="btn-hire">Contact Me</a>
         </nav>
     </header>
 
     <!-- HERO SECTION -->
     <section class="hero" id="about">
-        <div class="badge">
-            <i class="fa-solid fa-circle"></i> Open to High-Impact Roles
-        </div>
-        <h1>Mirza Arshi Abbas</h1>
-        <h2>Java Spring Boot Microservices Developer</h2>
-        <p>
-            Results-driven backend developer with <strong>5+ years of enterprise experience</strong> constructing scalable backend architectures, high-performance RESTful APIs, and real-time Kafka messaging platforms across Banking, Healthcare, and Insurance domains.
-        </p>
-        <div class="hero-action">
-            <a href="mailto:abbasarshi1995@gmail.com" class="btn-primary">
-                <i class="fa-solid fa-envelope"></i> Get In Touch
-            </a>
-            <a href="https://linkedin.com/in/arshiabbasmirza" target="_blank" class="btn-outline">
-                <i class="fa-brands fa-linkedin"></i> LinkedIn
-            </a>
+        <div class="hero-content">
+            <div class="badge-pulse">
+                <span class="pulse-dot"></span> Available for Senior Backend Engineering Roles
+            </div>
+            <h1>Mirza Arshi Abbas</h1>
+            <h2>Senior <span class="typing-text" id="type-target"></span></h2>
+            <p>
+                Results-driven developer with <strong>5+ years of enterprise experience</strong> designing high-throughput microservice architectures, real-time Kafka event engines, and resilient RESTful APIs across Banking, Healthcare, and Insurance domains.
+            </p>
+            <div class="hero-ctas">
+                <a href="mailto:abbasarshi1995@gmail.com" class="btn-main">
+                    <i class="fa-solid fa-paper-plane"></i> Get In Touch
+                </a>
+                <a href="https://linkedin.com/in/arshiabbasmirza" target="_blank" class="btn-glass">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- TECHNICAL SKILLS SECTION -->
+    <!-- TECHNICAL SKILLS & ANIMATED PROGRESS -->
     <section id="skills" class="reveal">
-        <div class="section-title">
-            <h2><i class="fa-solid fa-code"></i> Technical Stack</h2>
-            <p>Core engineering competencies and frameworks utilized in production environments.</p>
+        <div class="section-header">
+            <span>// Tech Stack</span>
+            <h2>Core Competencies</h2>
         </div>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h3><i class="fa-solid fa-layer-group"></i> Frameworks & Core</h3>
-                <div class="tags">
-                    <span class="tag">Java 8 / J2EE</span>
-                    <span class="tag">Spring Boot</span>
-                    <span class="tag">Microservices</span>
-                    <span class="tag">Spring Security</span>
-                    <span class="tag">Hibernate</span>
-                    <span class="tag">Spring Data JPA</span>
+        <div class="skills-container">
+            <div class="skill-box">
+                <h3><i class="fa-solid fa-code"></i> Backend Ecosystem</h3>
+                <div class="progress-item">
+                    <div class="progress-info"><span>Java 8 / Core Java</span><span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="95%"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info"><span>Spring Boot & Microservices</span><span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="90%"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info"><span>Spring Security & JPA</span><span>85%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="85%"></div></div>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3><i class="fa-solid fa-cloud"></i> Messaging & Cloud</h3>
-                <div class="tags">
-                    <span class="tag">Apache Kafka</span>
-                    <span class="tag">RabbitMQ</span>
-                    <span class="tag">AWS (EKS)</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Kubernetes</span>
-                    <span class="tag">Jenkins CI/CD</span>
+
+            <div class="skill-box">
+                <h3><i class="fa-solid fa-network-wired"></i> Distributed & Cloud</h3>
+                <div class="progress-item">
+                    <div class="progress-info"><span>Apache Kafka / RabbitMQ</span><span>88%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="88%"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info"><span>Docker & Kubernetes (EKS)</span><span>82%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="82%"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info"><span>AWS Services & CI/CD</span><span>80%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="80%"></div></div>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3><i class="fa-solid fa-database"></i> Databases & Web</h3>
-                <div class="tags">
-                    <span class="tag">MySQL</span>
-                    <span class="tag">MongoDB</span>
-                    <span class="tag">REST APIs</span>
-                    <span class="tag">Angular</span>
-                    <span class="tag">Azure AD</span>
+
+            <div class="skill-box">
+                <h3><i class="fa-solid fa-database"></i> Databases & Tools</h3>
+                <div class="progress-item">
+                    <div class="progress-info"><span>MySQL Query Tuning</span><span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="90%"></div></div>
                 </div>
-            </div>
-            <div class="skill-card">
-                <h3><i class="fa-solid fa-wrench"></i> Tools & Delivery</h3>
-                <div class="tags">
-                    <span class="tag">Maven</span>
-                    <span class="tag">Git</span>
-                    <span class="tag">JUnit</span>
-                    <span class="tag">Tomcat</span>
-                    <span class="tag">Linux</span>
-                    <span class="tag">Agile Methodologies</span>
+                <div class="progress-item">
+                    <div class="progress-info"><span>MongoDB</span><span>78%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="78%"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info"><span>Git, Maven, JUnit</span><span>92%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-progress="92%"></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WORK EXPERIENCE TIMELINE -->
+    <!-- TIMELINE WORK EXPERIENCE -->
     <section id="experience" class="reveal">
-        <div class="section-title">
-            <h2><i class="fa-solid fa-briefcase"></i> Work History</h2>
-            <p>Over 5 years of professional backend software engineering expertise.</p>
+        <div class="section-header">
+            <span>// Career Progression</span>
+            <h2>Professional Experience</h2>
         </div>
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="company-header">
-                    <h3>SIEMENS</h3>
-                    <span class="duration">04/2025 - 07/2025</span>
-                </div>
-                <div class="role">Software Engineer</div>
+            <div class="timeline-card left">
+                <span class="time-badge">04/2025 - 07/2025</span>
+                <h3>Siemens</h3>
+                <p style="color: var(--secondary); font-weight: 600; margin-bottom: 0.8rem;">Software Engineer</p>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">
-                    Focused on developing internal enterprise document management systems with complex RBAC security and bulk export engine architectures.
+                    Architected document management microservices, integrated Azure AD RBAC authorization, and built high-performance streaming export engines.
                 </p>
             </div>
-            <div class="timeline-item">
-                <div class="company-header">
-                    <h3>INFOSYS</h3>
-                    <span class="duration">05/2020 - 04/2025</span>
-                </div>
-                <div class="role">Software Engineer</div>
+            <div class="timeline-card right">
+                <span class="time-badge">05/2020 - 04/2025</span>
+                <h3>Infosys</h3>
+                <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.8rem;">Software Engineer</p>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">
-                    Delivered critical banking, insurance, and healthcare supply chain platforms across global enterprise clients including HSBC, AIG, and AmerisourceBergen.
+                    Engineered mission-critical systems for HSBC Bank, AIG, and AmerisourceBergen with event-driven messaging and automated CI/CD pipelines.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- FEATURED PROJECTS -->
+    <!-- FEATURED PROJECTS WITH TILT -->
     <section id="projects" class="reveal">
-        <div class="section-title">
-            <h2><i class="fa-solid fa-diagram-project"></i> Key Projects & Achievements</h2>
-            <p>Production systems designed and deployed across enterprise clients.</p>
+        <div class="section-header">
+            <span>// Portfolio</span>
+            <h2>Key Enterprise Projects</h2>
         </div>
         <div class="projects-grid">
 
-            <!-- PROJECT 4 -->
+            <!-- PROJECT 1 -->
             <div class="project-card">
-                <div>
-                    <div class="project-meta">Siemens • Document Platform</div>
+                <div class="project-card-content">
+                    <div class="project-tag">Siemens • Enterprise Tool</div>
                     <h3>Product Documentation Tool (PDT)</h3>
-                    <p>Enterprise document management system handling hyperlink verification, automated PDF content extraction, and bulk uploads.</p>
-                    <ul class="project-bullets">
-                        <li>Built RESTful APIs with Spring Boot and Data JPA for modular document handling.</li>
-                        <li>Integrated enterprise RBAC security protocols with Azure AD.</li>
-                        <li>Designed streaming export engines (Excel, CSV, ZIP) for large-scale operations.</li>
-                        <li>Optimized MySQL query batch performance across 5,000+ record sets.</li>
+                    <p>Document management engine performing bulk operations, automated PDF processing, and Azure AD authentication.</p>
+                    <ul class="project-features">
+                        <li><i class="fa-solid fa-angle-right"></i> Custom Spring Data JPA batch optimization for 5,000+ records.</li>
+                        <li><i class="fa-solid fa-angle-right"></i> Streaming export engines supporting multi-format files (Excel/ZIP).</li>
                     </ul>
-                </div>
-                <div class="tags">
-                    <span class="tag">Spring Boot</span>
-                    <span class="tag">Azure AD</span>
-                    <span class="tag">AWS</span>
-                    <span class="tag">Angular</span>
-                </div>
-            </div>
-
-            <!-- PROJECT 3 -->
-            <div class="project-card">
-                <div>
-                    <div class="project-meta">HSBC Bank • Banking Compliance</div>
-                    <h3>Customer Due Diligence (CDD)</h3>
-                    <p>Enterprise KYC review & risk assessment engine consolidating real-time streaming data from Core Banking and compliance platforms.</p>
-                    <ul class="project-bullets">
-                        <li>Built high-volume real-time compliance microservices.</li>
-                        <li>Implemented event-driven messaging using Kafka and RabbitMQ.</li>
-                        <li>Managed dual persistence layers across MySQL and MongoDB.</li>
-                        <li>Containerized services with Docker and orchestrated on AWS EKS Kubernetes clusters.</li>
-                    </ul>
-                </div>
-                <div class="tags">
-                    <span class="tag">Microservices</span>
-                    <span class="tag">Kafka</span>
-                    <span class="tag">Kubernetes</span>
-                    <span class="tag">MongoDB</span>
+                    <div class="tech-pills">
+                        <span class="pill">Spring Boot</span>
+                        <span class="pill">Azure AD</span>
+                        <span class="pill">AWS</span>
+                        <span class="pill">MySQL</span>
+                    </div>
                 </div>
             </div>
 
             <!-- PROJECT 2 -->
             <div class="project-card">
-                <div>
-                    <div class="project-meta">AIG • Insurance Engine</div>
-                    <h3>Operational Data Store (ODS)</h3>
-                    <p>Centralized data hub holding atomic-level transaction data for Policy and Claims domains with standardized pub/sub interfaces.</p>
-                    <ul class="project-bullets">
-                        <li>Designed atomic transaction microservices for insurance policies/claims.</li>
-                        <li>Built standard pub/sub communication channels with Kafka, removing point-to-point couplings.</li>
-                        <li>Streamlined automated CI/CD pipelines via Jenkins.</li>
+                <div class="project-card-content">
+                    <div class="project-tag">HSBC Bank • Compliance Engine</div>
+                    <h3>Customer Due Diligence (CDD)</h3>
+                    <p>Real-time streaming KYC review system consolidating high-volume transaction data across core banking applications.</p>
+                    <ul class="project-features">
+                        <li><i class="fa-solid fa-angle-right"></i> Event-driven pub/sub architecture using Kafka & RabbitMQ.</li>
+                        <li><i class="fa-solid fa-angle-right"></i> Orchestrated containers on AWS Kubernetes (EKS) clusters.</li>
                     </ul>
-                </div>
-                <div class="tags">
-                    <span class="tag">Core Java</span>
-                    <span class="tag">Kafka</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Jenkins</span>
+                    <div class="tech-pills">
+                        <span class="pill">Microservices</span>
+                        <span class="pill">Kafka</span>
+                        <span class="pill">Kubernetes</span>
+                        <span class="pill">MongoDB</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- PROJECT 1 -->
+            <!-- PROJECT 3 -->
             <div class="project-card">
-                <div>
-                    <div class="project-meta">AmerisourceBergen • Healthcare</div>
-                    <h3>Healthcare Supply Chain Platform</h3>
-                    <p>Global healthcare supply chain portal connecting manufacturers, healthcare providers, and pharmacies for distribution optimization.</p>
-                    <ul class="project-bullets">
-                        <li>Designed core microservices APIs for global pharmaceutical tracking.</li>
-                        <li>Optimized relational database queries supporting dynamic partner analytics.</li>
-                        <li>Maintained high code coverage and reliability using JUnit test suites.</li>
+                <div class="project-card-content">
+                    <div class="project-tag">AIG • Insurance Hub</div>
+                    <h3>Operational Data Store (ODS)</h3>
+                    <p>Centralized insurance data repository maintaining atomic-level transaction data for claims and policy lifecycles.</p>
+                    <ul class="project-features">
+                        <li><i class="fa-solid fa-angle-right"></i> Standardized Kafka messaging, removing point-to-point application coupling.</li>
+                        <li><i class="fa-solid fa-angle-right"></i> Automated Jenkins CI/CD deployment pipelines.</li>
                     </ul>
-                </div>
-                <div class="tags">
-                    <span class="tag">Java 8</span>
-                    <span class="tag">Spring Security</span>
-                    <span class="tag">Hibernate</span>
-                    <span class="tag">JUnit</span>
+                    <div class="tech-pills">
+                        <span class="pill">Core Java</span>
+                        <span class="pill">Kafka</span>
+                        <span class="pill">Docker</span>
+                        <span class="pill">Jenkins</span>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <!-- EDUCATION SECTION -->
-    <section id="education" class="reveal">
-        <div class="section-title">
-            <h2><i class="fa-solid fa-graduation-cap"></i> Education</h2>
-            <p>Academic qualifications in Computer Applications.</p>
-        </div>
-        <div class="edu-grid">
-            <div class="edu-card">
-                <h3>Master of Computer Applications (MCA)</h3>
-                <p style="color: var(--primary); font-weight: 600;">Bangalore University</p>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Bangalore, Karnataka, India</p>
-            </div>
-            <div class="edu-card">
-                <h3>Bachelor of Computer Applications (BCA)</h3>
-                <p style="color: var(--secondary); font-weight: 600;">Bangalore University</p>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Bangalore, Karnataka, India</p>
-            </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-socials">
-            <a href="https://linkedin.com/in/arshiabbasmirza" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:abbasarshi1995@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-            <a href="tel:+918105405542"><i class="fa-solid fa-phone"></i></a>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/arshiabbasmirza" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="mailto:abbasarshi1995@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+            <a href="tel:+918105405542" class="social-btn"><i class="fa-solid fa-phone"></i></a>
         </div>
         <p>Mirza Arshi Abbas • Java Spring Boot Microservices Developer</p>
-        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #6b7280;">Bangalore, Karnataka, India</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Bangalore, Karnataka, India</p>
     </footer>
 
-    <!-- INTERACTIVE JAVASCRIPT ANIMATIONS -->
+    <!-- INTERACTIVE ANIMATIONS SCRIPT -->
     <script>
-        // Scroll Reveal Animation Script
-        function revealOnScroll() {
+        // 1. CANVAS PARTICLES ANIMATION
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 1.5 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.3)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // 2. CURSOR FOLLOWER
+        const cursor = document.getElementById('cursor');
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // 3. TYPING EFFECT
+        const words = ["Java Developer", "Spring Boot Engineer", "Microservices Architect"];
+        let i = 0, timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('type-target').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('type-target').innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) { i++; } else { i = 0; }
+                    setTimeout(typingEffect, 500);
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+        typingEffect();
+
+        // 4. SCROLL REVEAL & SKILL BAR ANIMATION
+        function reveal() {
             const reveals = document.querySelectorAll('.reveal');
-            const windowHeight = window.innerHeight;
-            
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 100;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                    
+                    // Animate skill bars inside section
+                    const progressBars = el.querySelectorAll('.bar-fill');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-progress');
+                    });
                 }
             });
         }
+        window.addEventListener('scroll', reveal);
+        reveal();
 
-        window.addEventListener('scroll', revealOnScroll);
-        // Trigger on initial page load
-        revealOnScroll();
+        // 5. 3D CARD TILT EFFECT
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                card.style.transform = `rotateX(${-y / 15}deg) rotateY(${x / 15}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            });
+        });
     </script>
 </body>
 </html>
